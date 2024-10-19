@@ -1,0 +1,4 @@
+*.keras
+*.jpg
+*.xlsx
+_pycache_/

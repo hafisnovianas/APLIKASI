@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+   
+    <!-- Menyertakan SweetAlert dari CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>LSI 2024</title>
+</head>
+<body>
+    <header>
+        <h1>Pendeteksi Minyak Goreng Murni dan Oplosan</h1>
+        <button id="killButton">
+            <span class="close-icon">✖</span>
+        </button>
+    </header>
+
+    <main>
+        <div id="videoContainer">
+            <img src="{{ url_for('video_feed') }}" alt="Video Feed">
+            <button id="detectButton">DETEKSI</button>
+        </div>
+
+        <div id="indikatorContainer">
+            <div class="indikator" id="Curah">CURAH</div>
+            <div class='indikator' id="Kemasan">KEMASAN</div>
+            <div class='indikator' id="Oplosan">OPLOSAN</div>
+        </div>
+    </main>
+    
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
