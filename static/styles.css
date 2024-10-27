@@ -47,7 +47,7 @@ button:hover {
     color: #16423C;
 }
 
-header .close-icon {
+header i {
     font-weight: bold; /* Menjadikan 'X' lebih tebal */
     font-size: 24px; /* Ukuran ikon */
 }

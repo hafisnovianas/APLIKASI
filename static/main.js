@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     const detectButton = document.getElementById('detectButton')
-    const killButton = document.getElementById('killButton')
+    const fullScreenButton = document.getElementById('fullScreenButton')
     const indikators = document.getElementsByClassName('indikator');
     
     detectButton.addEventListener('click',(event) => {
         onDetection();
     })
 
-    killButton.addEventListener('click', (event) => {
-        onKillBrowser();
+    fullScreenButton.addEventListener('click', (event) => {
+        toggleFullScreen();
     })
 
     async function onDetection() {
@@ -63,6 +63,16 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Fetch error', error)
             return null
         }
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+      } else {
+          if (document.exitFullscreen) {
+              document.exitFullscreen();
+          }
+      }
     }
 
     async function onKillBrowser() {
