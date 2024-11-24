@@ -1,0 +1,12 @@
+[Unit]
+Description=LSI 2024 Flask App
+After=network.target
+
+[Service]
+User=hafis
+WorkingDirectory=/home/hafis/APLIKASI
+ExecStart=/home/hafis/APLIKASI/venv/bin/python /home/hafis/APLIKASI/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

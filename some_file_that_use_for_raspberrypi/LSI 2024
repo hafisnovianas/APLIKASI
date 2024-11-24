@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LSI 2024
+Comment=Run LSI 2024 in Kiosk Mode
+Exec=chromium-browser --kiosk http://127.0.0.1:5000
+Icon=chromium
+Terminal=false
+Type=Application
+Categories=Network;
+Name[en_GB]=LSI 2024

@@ -1,0 +1,7 @@
+     [Desktop Entry]
+     Version=1.0
+     Type=Application
+     Name=Run Server
+     Comment=Run my Python server application
+     Exec= lxterminal -e "/home/hafis/APLIKASI/run_flask.sh; read"
+     Terminal=true

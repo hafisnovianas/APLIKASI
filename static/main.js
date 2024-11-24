@@ -1,14 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const detectButton = document.getElementById('detectButton')
-    const fullScreenButton = document.getElementById('fullScreenButton')
+    const detectButton = document.getElementById('detectButton');
+    const fullScreenButton = document.getElementById('fullScreenButton');
+    const exitButton = document.getElementById('exitButton');
     const indicators = document.getElementsByClassName('indikator');
     
-    detectButton.addEventListener('click',(event) => {
+    detectButton.addEventListener('click',() => {
         onDetection();
     })
 
-    fullScreenButton.addEventListener('click', (event) => {
+    fullScreenButton.addEventListener('click', () => {
         toggleFullScreen();
+    })
+
+    exitButton.addEventListener('click', () => {
+        onKillBrowser();
     })
 
     async function onDetection() {
