@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const detectButton = document.getElementById('detectButton')
     const fullScreenButton = document.getElementById('fullScreenButton')
-    const indikators = document.getElementsByClassName('indikator');
+    const indicators = document.getElementsByClassName('indikator');
     
     detectButton.addEventListener('click',(event) => {
         onDetection();
@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     async function onDetection() {
-        const detection = await detect()
-        console.log(detection)
-
-        let title = 'Minyak ' + detection
+        const {prediction, percentage} = await detect()
+        console.log(`${prediction} ${percentage}`)
+        
+        let title = `${percentage}% Minyak ${prediction}`
         let icon = 'success'
 
-        if (detection == 'Oplosan') icon = 'warning'
+        if (prediction == 'Oplosan') icon = 'warning'
 
         Swal.fire({
             title: 'Detecting...',
@@ -38,15 +38,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 background: '#E9EFEC',
                 color: '#16423C',
                 showConfirmButton: false,
-                timer: 2000
+                timer: 5000
             });
-            Array.from(indikators).forEach((indikator) => {
-                indikator.style.backgroundColor = 'transparent'
-                if (indikator.id == detection) {
-                    indikator.style.backgroundColor = '#E9EFEC'
+            Array.from(indicators).forEach((indicator) => {
+                let bgColor = 'transparent'
+                if (indicator.id === prediction) {
+                  switch (prediction) {
+                    case 'Curah':
+                      bgColor = 'yellow';
+                      break
+                    case 'Kemasan':
+                      bgColor = 'green';
+                      break
+                    case 'Oplosan':
+                      bgColor = 'red';
+                      break
+                  }
                 }
+                indicator.style.backgroundColor = bgColor;
             })
-        }, 2000);  // Simulasi delay 2 detik untuk menyimpan
+        }, 1000);  // Simulasi delay 2 detik untuk menyimpan
     }
 
     async function detect() {
@@ -58,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
 
-            return data.detection
+            return data
         } catch (error) {
             console.error('Fetch error', error)
             return null

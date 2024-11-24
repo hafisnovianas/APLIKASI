@@ -18,11 +18,12 @@ def generate_frames():
             yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 def detect():
-    success, frame = camera.read()
-    if success:
-        detection = predict.predict_image(frame)
+    framePath = capture()
+    ##framePath = 'AA1 (9).jpg'
+    if framePath:
+        prediction, percentage = predict.predict_image(framePath)
 
-    return jsonify(detection=detection)
+    return jsonify(prediction=prediction, percentage=percentage)
 
 def index():
     return render_template('index.html')
@@ -32,7 +33,6 @@ def video_feed():
 
 def kill_browser():
     try:
-        # Menjalankan perintah dengan subprocess
         result = subprocess.run(
             ["taskkill", "/F", "/IM", "chrome.exe"],
             #["pkill", "chromium"],
@@ -50,18 +50,16 @@ def kill_browser():
 def capture():
     success, frame = camera.read()
     if success:
-        # Membuat nama file dengan timestamp
-        filename = f"captured_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
-        cv2.imwrite(filename, frame)  # Menyimpan gambar ke file
-        return f"Image saved as {filename}", 200
-    return "Failed to capture image", 500
+        filePath = f"cache/captured_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
+        cv2.imwrite(filePath, frame)
+        return filePath
+    return False
 
 app = Flask(__name__)
 app.add_url_rule('/', 'index', index)
 app.add_url_rule('/video_feed', 'video_feed', video_feed)
-app.add_url_rule('/capture', 'capture', capture)
 app.add_url_rule('/detect', 'detect', detect)
 app.add_url_rule('/kill_browser', 'kill_browser', kill_browser, methods=['POST'])
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)#hapus debug=True jika dijalankan di raspi, karena debugger akan menjalankan program 2 kali, menyebabkan kamera error karena kamera masih berjalan ketika program di run yang kedua oleh debugger
