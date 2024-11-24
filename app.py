@@ -3,6 +3,7 @@ import cv2
 import datetime
 from cnn import predict
 import subprocess
+import webbrowser
 
 # Inisialisasi kamera
 camera = cv2.VideoCapture(0)  # Gunakan 0 untuk kamera USB atau '/dev/video0' untuk Raspberry Pi Camera
@@ -62,4 +63,6 @@ app.add_url_rule('/detect', 'detect', detect)
 app.add_url_rule('/kill_browser', 'kill_browser', kill_browser, methods=['POST'])
 
 if __name__ == '__main__':
+    url = 'http://127.0.0.1:5000'
+    webbrowser.open(url) # Membuka browser dengan url yang telah ditentukan
     app.run(debug=True, host='0.0.0.0', port=5000)#hapus debug=True jika dijalankan di raspi, karena debugger akan menjalankan program 2 kali, menyebabkan kamera error karena kamera masih berjalan ketika program di run yang kedua oleh debugger
